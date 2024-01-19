@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Contact us Form</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="container">
+      <div class="text" id="text">
+         Contact us Form
+      </div>
+      <form id="form">
+         <div class="form-row">
+            <div class="input-data">
+               <input type="text" required name="firstName">
+               <div class="underline"></div>
+               <label for="">Imie</label>
+            </div>
+            <div class="input-data">
+               <input type="text" required name="lastName">
+               <div class="underline"></div>
+               <label for="">Nazwisko</label>
+            </div>
+         </div>
+         <div class="form-row">
+            <div class="input-data">
+               <input type="text" required name="password">
+               <div class="underline"></div>
+               <label for="">Hasło</label>
+            </div>
+            <div class="input-data">
+               <input type="date" required name="date">
+               <div class="underline"></div>
+            </div>
+         </div>
+         <div class="form-row">
+         <div class="input-data textarea">
+            <input type="text"required name="location">
+            <br />
+            <div class="underline"></div>
+            <label for="">Miejscowość</label>
+            <br />
+            <div class="form-row submit-btn">
+               <div class="input-data">
+                  <div class="inner"></div>
+                  <input type="button" value="submit" id="btn">
+               </div>
+            </div>
+      </form>
+      </div>
+<!-- partial -->
+</body>
+<script>
+const div = document.getElementById('text');
+ const form = document.getElementById('form');
+ document.getElementById('btn').addEventListener('click', (event) => {
+event.preventDefault();
+const formObj = {
+ firstName: form.elements.firstName.value,
+ lastName: form.elements.lastName.value,
+ password: form.elements.password.value,
+ date: form.elements.date.value,
+ location: form.elements.location.value
+ };
+fetch('http://localhost:8080/formController?' + new URLSearchParams(formObj))
+ .then(response => response.text())
+ .then((text) => {
+ div.innerHTML = `<h1>${text}</h1>`;
+ });
+ });
+</script>
+</html>
